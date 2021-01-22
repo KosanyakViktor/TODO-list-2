@@ -21,8 +21,11 @@
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^5.0.1",
+<<<<<<< HEAD
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
+=======
+>>>>>>> b57bdb696475e34d33658c2a5c775e3e1b15de5e
     "eslint-plugin-import": "^2.22.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.1",
