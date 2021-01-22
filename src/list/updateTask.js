@@ -1,15 +1,15 @@
-import { renderListItems } from './renderer.js';
-import { getItem, setItem } from './storage.js';
-import { getTasksList, updateTask, deleteTask } from './tasksGateway.js';
+import { renderListItems } from './renderer';
+import { getItem, setItem } from './storage';
+import { getTasksList, updateTask, deleteTask } from './tasksGateway';
 
-export const onItemClick = event => {
+export const onItemClick = (event) => {
   if (event.target.className === 'list-item') {
     return;
   }
 
   const taskId = event.target.closest('.list-item').dataset.id;
   const tasksList = getItem('tasksList');
-  const { text } = tasksList.find(task => task.id === taskId);
+  const { text } = tasksList.find((task) => task.id === taskId);
   const done = event.target.checked;
 
   const updatedTask = {
@@ -19,7 +19,7 @@ export const onItemClick = event => {
 
   updateTask(taskId, updatedTask)
     .then(() => getTasksList())
-    .then(newTasksList => {
+    .then((newTasksList) => {
       setItem('tasksList', newTasksList);
       renderListItems();
     });
@@ -27,7 +27,7 @@ export const onItemClick = event => {
   if (event.target.className === 'list-item__delete-btn') {
     deleteTask(taskId)
       .then(() => getTasksList())
-      .then(newTasksList => {
+      .then((newTasksList) => {
         setItem('tasksList', newTasksList);
         renderListItems();
       });

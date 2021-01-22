@@ -1,5 +1,6 @@
-import { getItem, setItem } from './storage.js';
+import { getItem, setItem } from './storage';
 import './list.scss';
+
 const listElem = document.querySelector('.list');
 
 const createCheckbox = ({ done, id }) => {

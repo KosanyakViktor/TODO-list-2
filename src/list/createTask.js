@@ -1,6 +1,6 @@
-import { renderListItems } from './renderer.js';
-import { getItem, setItem } from './storage.js';
-import { createTask, getTasksList } from './tasksGateway.js';
+import { renderListItems } from './renderer';
+import { getItem, setItem } from './storage';
+import { createTask, getTasksList } from './tasksGateway';
 
 export const onCreateTask = () => {
   const inputEl = document.querySelector('.task-input');
@@ -20,7 +20,7 @@ export const onCreateTask = () => {
 
   createTask(newTask)
     .then(() => getTasksList())
-    .then(newTasksList => {
+    .then((newTasksList) => {
       setItem('tasksList', newTasksList);
       renderListItems();
     });
