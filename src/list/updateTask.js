@@ -1,41 +1,36 @@
-import { renderListItems } from './renderer';
+import { renderTasks } from './renderer';
 import { getItem, setItem } from './storage';
-import { getTasksList, updateTask, deleteTask } from './tasksGateway';
+import { getTasksList, updateTask } from './tasksGateway';
 
-export const onItemClick = (event) => {
-  if (event.target.className === 'list-item') {
+export const onToggleTask = (e) => {
+  const isCheckbox = e.target.classList.contains('list-item__checkbox');
+
+  if (!isCheckbox) {
     return;
   }
 
-  const taskId = event.target.closest('.list-item').dataset.id;
   const tasksList = getItem('tasksList');
-  const { text } = tasksList.find((task) => task.id === taskId);
-  const done = event.target.checked;
+  const taskId = e.target.dataset.id;
+  const { text, createDate } = tasksList.find((task) => task.id === taskId);
+  const done = e.target.checked;
 
   const updatedTask = {
     text,
+    createDate,
     done,
+    finishDate: done ? new Date().toISOString() : null,
   };
 
   updateTask(taskId, updatedTask)
     .then(() => getTasksList())
     .then((newTasksList) => {
       setItem('tasksList', newTasksList);
-      renderListItems();
+      renderTasks();
     });
-
-  if (event.target.className === 'list-item__delete-btn') {
-    deleteTask(taskId)
-      .then(() => getTasksList())
-      .then((newTasksList) => {
-        setItem('tasksList', newTasksList);
-        renderListItems();
-      });
-  }
 };
 
 // 1. Prepare data
-// 2. Update data in data base
+// 2. Update data in db
 // 3. Read new data from server
 // 4. Save new data to front-end storage
 // 5. Update UI based on new data

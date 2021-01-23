@@ -1,13 +1,13 @@
 {
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "targets": "> 1%",
-                "useBuiltIns":"usage",
-                "corejs": 3,
-                "modules": false
-            }
-        ]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": "> 1%",
+        "useBuiltIns": "usage",
+        "corejs": 3,
+        "modules": false
+      }
     ]
+  ]
 }

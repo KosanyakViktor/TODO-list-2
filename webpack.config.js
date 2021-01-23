@@ -4,60 +4,59 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpack = require('webpack');
 
 module.exports = (env, argv) => {
-    const isProduction = argv.mode === 'production';
-    const config = {
-        entry: './src/index.js',
-        output: {
-            filename: 'bundle.js',
+  const isProduction = argv.mode === 'production';
+  const config = {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+    },
+    module: {
+      rules: [
+        {
+          test: /.js$/,
+          use: ['babel-loader'],
         },
-        module: {
-            rules: [
-                {
-                    test: /.js$/,
-                    use: ['babel-loader']
-                },
-                {
-                    test: /\.s?css$/i,
-                    use: [
-                        isProduction 
-                          ? MiniCssExtractPlugin.loader 
-                          :'style-loader',
-                           'css-loader', 
-                           'sass-loader'
-                        ]
-                },
-                {
-                    test: /\.(png|jpg|gif)$/i,
-                    use: [
-                        {
-                            loader: 'url-loader',
-                            options: {
-                                outputPath: 'images',
-                                name: '[name].[ext]',
-                                limit: 8192,
-                            },
-                        },
-                    ],
-                },
-            ]
+        {
+          test: /.s?css$/,
+          use: [
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader',
+            'sass-loader',
+          ],
         },
-        plugins: [
-            new webpack,ProgressPlugin(),
-            new CleanWebpackPlugin(),
-            new HtmlWebpackPlugin({
-                template: './src/index.html'
-            }),
-        ],
-        devServer: {
-            port: 9000,
-            hot: true,
-        }
-    };
+        {
+          test: /.(jpg|png)$/,
+          use: [
+            {
+              loader: 'url-loader',
+              options: {
+                limit: 8192,
+                name: '[name].[ext]',
+                outputPath: 'images',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    plugins: [
+      new webpack.ProgressPlugin(),
+      new CleanWebpackPlugin(),
+      new HtmlWebpackPlugin({
+        template: './src/index.html',
+      }),
+    ],
+    devServer: {
+      port: 9000,
+      // hot: true,
+    },
+  };
 
-  if(isProduction) {
-      config.plugins.push(new MiniCssExtractPlugin({
-          filename: '[name].css',
-      }));
+  if (isProduction) {
+    config.plugins.push(new MiniCssExtractPlugin({
+      filename: '[name].css',
+    }));
   }
+
   return config;
 };
