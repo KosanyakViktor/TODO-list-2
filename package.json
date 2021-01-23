@@ -4,7 +4,7 @@
   "description": "todolist-eslint",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server -d --devtool eval-source-maps",
+    "start": "webpack-dev-server -d --devtool eval-source-maps --open",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "webpack -p",
